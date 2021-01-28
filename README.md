@@ -6,7 +6,7 @@ The purpose of this repo is to demonstrate a simple AWS Cloudformation deploy wi
 
 - `cd cli`
 - `yarn` or `npm i`
-- rename ".env.default" to ".env" and fill in your AWS ID and Secret Key
+- rename ".env.default" to ".env" and fill in your AWS ID and Secret Key -OR- enter your credentials via the command-line prompt
 - `node -r esm src/cli.js`
 
 ## USAGE
