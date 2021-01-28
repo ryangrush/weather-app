@@ -9,7 +9,6 @@ class App extends Component {
 
   componentDidMount() {
     axios.get(`${process.env.REACT_APP_LAMBDA_URL}/weather?city=tulsa`)
-    // axios.get('https://cisydiuhok.execute-api.us-east-1.amazonaws.com/call/weather?city=tulsa')
       .then((res) => {
         const weather = res.data;
         weather.main.temp_fahrenheit = Math.round((weather.main.temp - 273.15) * 1.8 + 32);

@@ -1,5 +1,6 @@
-const AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
+const inquirer = require('inquirer');
 
 export default {
 
@@ -39,6 +40,40 @@ export default {
     });
   },
 
+  getAWSCredentials: function() {
+    return new Promise((resolve, reject) => {
+      if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+        inquirer
+          .prompt([
+            {
+              type: 'input',
+              name: 'awsKeyId',
+              message: 'AWS_ACCESS_KEY_ID',
+              when: !process.env.AWS_ACCESS_KEY_ID
+            },
+            {
+              type: 'input',
+              name: 'awsSecretKey',
+              message: 'AWS_SECRET_ACCESS_KEY',
+              when: !process.env.AWS_SECRET_ACCESS_KEY
+            }
+          ])
+          .then(answers => {
+            if (process.env.AWS_ACCESS_KEY_ID) { answers.awsKeyId = process.env.AWS_ACCESS_KEY_ID }
+            if (process.env.AWS_SECRET_ACCESS_KEY) { answers.awsSecretKey = process.env.AWS_SECRET_ACCESS_KEY }
+            
+            resolve(answers);
+          })
+      }
+      else {
+        resolve({
+          awsKeyId: process.env.AWS_ACCESS_KEY_ID,
+          awsSecretKey: process.env.AWS_SECRET_ACCESS_KEY
+        })
+      }
+    });
+  },
+
   getS3WebsiteURL: function(stackName) {
     return new Promise((resolve, reject) => {
       new AWS.CloudFormation().describeStacks({StackName: stackName}, (err, data) => {
@@ -50,5 +85,6 @@ export default {
       });
     });
   },
+
 
 }
