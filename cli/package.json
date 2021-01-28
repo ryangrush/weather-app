@@ -1,0 +1,14 @@
+{
+  "name": "cfn",
+  "dependencies": {
+    "await-exec": "^0.1.2",
+    "aws-sdk": "^2.831.0",
+    "cfn": "^1.8.1",
+    "commander": "^7.0.0",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "inquirer": "^7.3.3",
+    "s3-lambo": "^1.0.0"
+  },
+  "version": "1.0.0"
+}
