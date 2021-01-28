@@ -25,3 +25,9 @@ The purpose of this repo is to demonstrate a simple AWS Cloudformation deploy wi
 ## MISC
 
 If you wish to make changes to the CLI and rebuild the binaries run `cd cli && yarn run build`
+
+
+## TODO
+
+- configure webpack to successfully build compressed code in cli/dist/
+- configure `pkg` to successfully build binaries in bin/
