@@ -1,8 +1,17 @@
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 const inquirer = require('inquirer');
+const exec = require('await-exec');
+const path = require('path');
+
 
 export default {
+
+  buildWebApp: async function(stackName) {
+    const gatewayInvokeURL = await this.getAPIGatewayInvokeURL(stackName);
+
+    await exec(`cd ${path.join(__dirname, '../../web-app/')} && REACT_APP_LAMBDA_URL=${gatewayInvokeURL} yarn run build`);
+  },
 
   emptyS3Directory: async function(bucket, dir) {
     const listParams = {

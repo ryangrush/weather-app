@@ -15,7 +15,13 @@ The purpose of this repo is to demonstrate a simple AWS Cloudformation deploy wi
 
 `node -r esm src/cli.js -n <STACK NAME> -c`
 
-* = URL to ReactJS app will display in terminal upon completion. 
+URL to ReactJS app will display in terminal upon completion. 
+
+*Update*
+
+`node -r esm src/cli.js -n <STACK NAME> -u`
+
+This command will build web-app/ and upload it to S3.
 
 *Destroy*
 

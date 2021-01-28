@@ -15,6 +15,7 @@ program
   .requiredOption('-n, --name <type>', 'name of cloudformation stack')
   .option('-c, --create', 'create cloudformation stack')
   .option('-d, --destroy', 'destroy cloudformation stack')
+  .option('-u, --update', 'update web-app')
   .parse(process.argv)
 
 const options = program.opts();
@@ -66,6 +67,22 @@ const stackName = options.name;
       await util.emptyS3Directory(`${stackName}-app`, '');
       await util.emptyS3Directory(`${stackName}-logs`, '');
       await cfn.delete(stackName);
+    }
+    else {
+      console.log(`ERROR - stack "${stackName}" does not exists`);
+    }
+  }
+
+  else if (options.update && nameIsValid) {
+    if (await cfn.stackExists(stackName)) {
+      await util.buildWebApp(stackName);
+      await s3Lambo.uploadDirectory({
+        path: path.join(__dirname, '../../web-app/build'),
+        params: {
+          Bucket: `${stackName}-app`
+        }
+      });
+
     }
     else {
       console.log(`ERROR - stack "${stackName}" does not exists`);
